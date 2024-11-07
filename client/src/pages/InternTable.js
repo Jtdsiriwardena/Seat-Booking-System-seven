@@ -1,5 +1,5 @@
-// InternTable.js
 import React from 'react';
+import PropTypes from 'prop-types'; // Import PropTypes
 
 const InternTable = ({ interns }) => {
     return (
@@ -24,6 +24,19 @@ const InternTable = ({ interns }) => {
             </tbody>
         </table>
     );
+};
+
+// PropTypes Validation
+InternTable.propTypes = {
+    interns: PropTypes.arrayOf(
+        PropTypes.shape({
+            _id: PropTypes.string.isRequired, // Assuming '_id' is a string
+            internID: PropTypes.string.isRequired,
+            firstName: PropTypes.string.isRequired,
+            lastName: PropTypes.string.isRequired,
+            email: PropTypes.string.isRequired
+        })
+    ).isRequired
 };
 
 export default InternTable;
