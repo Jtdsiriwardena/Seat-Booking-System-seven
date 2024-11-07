@@ -32,8 +32,17 @@ exports.signup = async (req, res) => {
         // Hash password securely
         const hashedPassword = await bcrypt.hash(password, 10);
 
+        // Ensure internID is a string and no special characters
+        const sanitizedInternID = String(internID).trim();
+
         // Create intern instance safely
-        const intern = new Intern({ internID, firstName, lastName, email, password: hashedPassword });
+        const intern = new Intern({
+            internID: sanitizedInternID,
+            firstName: String(firstName).trim(),
+            lastName: String(lastName).trim(),
+            email: String(email).trim(),
+            password: hashedPassword
+        });
 
         // Save intern to database
         await intern.save();
@@ -54,8 +63,11 @@ exports.login = async (req, res) => {
     }
 
     try {
-        // Use safe querying techniques with parameterized queries (via ORM methods)
-        const intern = await Intern.findOne({ email });
+        // Ensure email is a string and no special characters
+        const sanitizedEmail = String(email).trim();
+
+        // Use safe querying techniques with parameterized queries
+        const intern = await Intern.findOne({ email: sanitizedEmail });
 
         // Check if intern exists and password matches
         if (!intern || !await bcrypt.compare(password, intern.password)) {
@@ -80,8 +92,11 @@ exports.googleLogin = async (req, res) => {
         const userData = await verifyGoogleToken(token);
         const { email } = userData;
 
+        // Ensure email is a string and no special characters
+        const sanitizedEmail = String(email).trim();
+
         // Find intern by email (parameterized query)
-        let intern = await Intern.findOne({ email });
+        let intern = await Intern.findOne({ email: sanitizedEmail });
 
         if (!intern) {
             return res.json({ isNewUser: true, email });
@@ -106,18 +121,26 @@ exports.updateInternId = async (req, res) => {
     }
 
     try {
-        // Use parameterized query to prevent any direct query construction from user data
-        let intern = await Intern.findOne({ email });
+        // Ensure email is a string and no special characters
+        const sanitizedEmail = String(email).trim();
+        const sanitizedInternId = String(internId).trim();
+
+        let intern = await Intern.findOne({ email: sanitizedEmail });
 
         if (!intern) {
             // If intern doesn't exist, create a new one
-            intern = new Intern({ email, internID: internId, firstName, lastName });
+            intern = new Intern({
+                email: sanitizedEmail,
+                internID: sanitizedInternId,
+                firstName: String(firstName).trim(),
+                lastName: String(lastName).trim()
+            });
             await intern.save();
         } else {
             // Update intern details
-            intern.internID = internId;
-            intern.firstName = firstName;
-            intern.lastName = lastName;
+            intern.internID = sanitizedInternId;
+            intern.firstName = String(firstName).trim();
+            intern.lastName = String(lastName).trim();
             await intern.save();
         }
 
