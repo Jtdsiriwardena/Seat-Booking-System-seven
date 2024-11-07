@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';  // Import PropTypes
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -14,8 +15,11 @@ const SidebarLink = ({ to, icon, label }) => {
     );
 };
 
-
-
-
+// Add prop types validation
+SidebarLink.propTypes = {
+    to: PropTypes.string.isRequired,       // 'to' is a required string
+    icon: PropTypes.object.isRequired,     // 'icon' should be an object (FontAwesomeIcon)
+    label: PropTypes.string.isRequired,    // 'label' should be a string
+};
 
 export default SidebarLink;
