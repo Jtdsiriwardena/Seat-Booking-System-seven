@@ -8,9 +8,10 @@ exports.bookSeat = async (req, res) => {
     const { date, seatNumber, specialRequest } = req.body;
 
     // Input validation (ensure date is a valid date string and seatNumber is a valid format)
-    if (!date || !seatNumber || typeof date !== 'string' || typeof seatNumber !== 'string') {
+    if (!date || !seatNumber || typeof date !== 'string' || isNaN(seatNumber)) {
         return res.status(400).json({ message: 'Invalid input data' });
     }
+    
 
     try {
         // Ensure the query uses sanitized input (we already validate the data before)
