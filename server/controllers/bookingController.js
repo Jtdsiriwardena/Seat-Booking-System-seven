@@ -7,29 +7,47 @@ const QRCode = require('qrcode');
 exports.bookSeat = async (req, res) => {
     const { date, seatNumber, specialRequest } = req.body;
 
-    // Input validation (ensure date is a valid date string and seatNumber is a valid format)
+    // Input validation (ensure date is a valid date string and seatNumber is a valid number)
     if (!date || !seatNumber || typeof date !== 'string' || isNaN(seatNumber)) {
         return res.status(400).json({ message: 'Invalid input data' });
     }
-    
 
     try {
+        // Use safer query construction
+        const sanitizedDate = new Date(date);
+        if (isNaN(sanitizedDate)) {
+            return res.status(400).json({ message: 'Invalid date format' });
+        }
+
         // Ensure the query uses sanitized input (we already validate the data before)
-        const existingBooking = await Booking.findOne({ date, seatNumber });
+        const existingBooking = await Booking.findOne({
+            date: sanitizedDate,
+            seatNumber: parseInt(seatNumber, 10) // Ensure seatNumber is treated as a number
+        });
+
         if (existingBooking) {
             return res.status(400).json({ message: 'Seat already booked for this date.' });
         }
 
-        const booking = new Booking({ intern: req.internId, date, seatNumber, specialRequest });
+        // Create and save new booking
+        const booking = new Booking({
+            intern: req.internId,
+            date: sanitizedDate,
+            seatNumber: parseInt(seatNumber, 10),  // Ensure seatNumber is a number
+            specialRequest
+        });
+
         await booking.save();
 
+        // Fetch intern and send email confirmation
         const intern = await Intern.findById(req.internId);
         if (!intern) {
             return res.status(404).json({ message: 'Intern not found' });
         }
-        await sendConfirmationEmail(intern, booking);
 
+        await sendConfirmationEmail(intern, booking);
         res.status(201).json({ message: 'Seat booked successfully', booking });
+
     } catch (error) {
         console.error('Error booking seat:', error);
         res.status(500).json({ message: 'Server error' });
