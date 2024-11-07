@@ -7,6 +7,20 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faUser, faPlusCircle, faClipboardList, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
+// SidebarLink component to avoid repetition
+const SidebarLink = ({ to, icon, label }) => {
+    const isActive = window.location.pathname === to;
+    return (
+        <Link
+            to={to}
+            className={`px-4 py-2 my-4 rounded-full transition-colors duration-200 ${isActive ? 'bg-blue-700 text-white' : 'text-white hover:bg-white hover:text-blue-900'}`}
+        >
+            <FontAwesomeIcon icon={icon} className="mr-3" />
+            {label}
+        </Link>
+    );
+};
+
 const AddHoliday = () => {
     const [date, setDate] = useState('');
     const [reason, setReason] = useState('');
@@ -93,26 +107,11 @@ const AddHoliday = () => {
             <aside className="ad-sidebar-unique">
                 <img src={logo} alt="logo" className="ad-sidebar-logo-unique" />
                 <nav className="ad-sidebar-nav-unique">
-                    <Link to="/admin" className="ad-sidebar-link-unique">
-                        <FontAwesomeIcon icon={faClipboardList} className="ad-sidebar-icon" />
-                        Bookings
-                    </Link>
-                    <Link to="/interns" className="ad-sidebar-link-unique">
-                        <FontAwesomeIcon icon={faUser} className="ad-sidebar-icon" />
-                        Interns
-                    </Link>
-                    <Link to="/add-holiday" className={`px-4 py-2 rounded-tr-full rounded-br-full transition-colors duration-200 ${window.location.pathname === '/add-holiday'}`}>
-                        <FontAwesomeIcon icon={faPlusCircle} className="ad-sidebar-icon" />
-                        Add Holiday
-                    </Link>
-                    <Link to="/attendance" className="ad-sidebar-link-unique">
-                        <FontAwesomeIcon icon={faCalendar} className="ad-sidebar-icon" />
-                        Daily Attendance
-                    </Link>
-                    <Link to="/intern-attendance" className="ad-sidebar-link-unique">
-                        <FontAwesomeIcon icon={faClipboardList} className="ad-sidebar-icon" />
-                        Intern Attendance
-                    </Link>
+                    <SidebarLink to="/admin" icon={faClipboardList} label="Bookings" />
+                    <SidebarLink to="/interns" icon={faUser} label="Interns" />
+                    <SidebarLink to="/add-holiday" icon={faPlusCircle} label="Add Holiday" />
+                    <SidebarLink to="/attendance" icon={faCalendar} label="Daily Attendance" />
+                    <SidebarLink to="/intern-attendance" icon={faClipboardList} label="Intern Attendance" />
                 </nav>
                 <button className="ad-sidebar-logout-button-unique">
                     <FontAwesomeIcon icon={faSignOutAlt} className="ad-sidebar-icon" />
