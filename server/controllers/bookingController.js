@@ -26,10 +26,7 @@ exports.bookSeat = async (req, res) => {
             }
         });
 
-        if (monthlyBookingsCount >= 8) {
-            return res.status(400).json({ message: 'You have reached the maximum limit of 8 bookings for this month.' });
-        }
-
+    
         const booking = new Booking({ intern: req.internId, date, seatNumber, specialRequest });
         await booking.save();
 

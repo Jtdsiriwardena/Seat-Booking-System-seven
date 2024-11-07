@@ -13,7 +13,6 @@ const Dashboard = () => {
     const [date, setDate] = useState('');
     const [seatNumber, setSeatNumber] = useState('');
     const [specialRequest, setSpecialRequest] = useState('');
-    const [monthlyCount, setMonthlyCount] = useState(0); 
     const token = localStorage.getItem('token');
     const internId = localStorage.getItem('internId');
 
@@ -24,18 +23,6 @@ const Dashboard = () => {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setBookings(response.data);
-
-                // Count bookings for the current month
-                const currentMonth = new Date().getMonth();
-                const currentYear = new Date().getFullYear();
-
-                const count = response.data.filter(booking => {
-                    const bookingDate = new Date(booking.date);
-                    return bookingDate.getMonth() === currentMonth && bookingDate.getFullYear() === currentYear;
-                }).length;
-
-                setMonthlyCount(count); // Update the state with the current month's booking count
-                console.log('Monthly bookings count:', count); // Log the count for debugging
             } catch (error) {
                 console.error('Error fetching all bookings:', error.response ? error.response.data : error.message);
             }
@@ -80,27 +67,11 @@ const Dashboard = () => {
             });
     
            
-            setMonthlyCount(prevCount => prevCount + 1);
+    
     
         } catch (error) {
             console.error('Error booking seat:', error.response ? error.response.data : error.message);
     
-          
-            if (error.response && error.response.status === 400 && error.response.data.message.includes('maximum limit of 8 bookings')) {
-                MySwal.fire({
-                    title: 'Booking Limit Reached!',
-                    text: 'You cannot book more than 8 seats in a month.',
-                    icon: 'warning',
-                    confirmButtonText: 'Ok',
-                });
-            } else {
-                MySwal.fire({
-                    title: 'Booking Failed!',
-                    text: `${error.response ? error.response.data.message : error.message}`,
-                    icon: 'error',
-                    confirmButtonText: 'Ok',
-                });
-            }
         }
     };
     
@@ -179,10 +150,6 @@ const Dashboard = () => {
                 <button className="logout-button bg-red-600 text-white py-2 px-4 rounded hover:bg-red-500">Log Out</button>
             </header>
 
-            <div className="monthly-booking-count mb-4">
-                <h4 className="text-lg font-bold mb-2">Current Month Booking Count:</h4>
-                <p className="text-gray-400">{monthlyCount} / 8</p>
-            </div>
 
             <div className="dashboard-content bg-transparent p-6 rounded-lg shadow-lg">
                 <div className="seat-selection bg-transparent-40">

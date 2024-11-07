@@ -177,7 +177,7 @@ const Admin = () => {
                             setCurrentPage(1);
                         }}
                     >
-                        Upcoming Bookings
+                        Pending Bookings
                     </button>
                     <button
                         className={`py-2 px-4 rounded ${showConfirmed ? 'bg-blue-900 text-white' : 'bg-blue-200'} hover:opacity-90`}

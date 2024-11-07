@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
+// Function to verify Google token
 const verifyGoogleToken = async (token) => {
     const ticket = await client.verifyIdToken({
         idToken: token,
@@ -12,45 +13,80 @@ const verifyGoogleToken = async (token) => {
     return ticket.getPayload();
 };
 
+// Signup function
 exports.signup = async (req, res) => {
     const { internID, firstName, lastName, email, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    
-    const intern = new Intern({ internID, firstName, lastName, email, password: hashedPassword });
-    await intern.save();
-    
-    res.status(201).json({ message: 'Intern registered successfully!' });
-};
 
-exports.login = async (req, res) => {
-    const { email, password } = req.body;
-    const intern = await Intern.findOne({ email });
-
-    if (!intern || !await bcrypt.compare(password, intern.password)) {
-        return res.status(401).json({ message: 'Invalid credentials' });
+    // Input validation
+    if (!email || !password || !firstName || !lastName || !internID) {
+        return res.status(400).json({ message: 'All fields are required' });
     }
 
-    const token = jwt.sign({ id: intern._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.json({ token });
+    // Ensure email is properly formatted
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({ message: 'Invalid email format' });
+    }
+
+    try {
+        // Hash password securely
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Create intern instance safely
+        const intern = new Intern({ internID, firstName, lastName, email, password: hashedPassword });
+
+        // Save intern to database
+        await intern.save();
+        res.status(201).json({ message: 'Intern registered successfully!' });
+    } catch (error) {
+        console.error('Error during signup:', error);
+        res.status(500).json({ message: 'Internal server error during signup' });
+    }
 };
 
+// Login function
+exports.login = async (req, res) => {
+    const { email, password } = req.body;
+
+    // Input validation
+    if (!email || !password) {
+        return res.status(400).json({ message: 'Email and password are required' });
+    }
+
+    try {
+        // Use parameterized query to find intern by email
+        const intern = await Intern.findOne({ email });
+
+        if (!intern || !await bcrypt.compare(password, intern.password)) {
+            return res.status(401).json({ message: 'Invalid credentials' });
+        }
+
+        // Create JWT token for authentication
+        const token = jwt.sign({ id: intern._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        res.json({ token });
+    } catch (error) {
+        console.error('Error during login:', error);
+        res.status(500).json({ message: 'Internal server error during login' });
+    }
+};
+
+// Google Login function
 exports.googleLogin = async (req, res) => {
     const { token } = req.body;
 
     try {
-    
+        // Verify Google token
         const userData = await verifyGoogleToken(token);
-        const { email } = userData; 
+        const { email } = userData;
 
-    
+        // Check if intern exists with the given email (parameterized query)
         let intern = await Intern.findOne({ email });
 
         if (!intern) {
-            
             return res.json({ isNewUser: true, email });
         }
 
-    
+        // Generate JWT token for the existing intern
         const jwtToken = jwt.sign({ id: intern._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.json({ token: jwtToken, isNewUser: false });
     } catch (error) {
@@ -59,24 +95,32 @@ exports.googleLogin = async (req, res) => {
     }
 };
 
+// Update Intern ID function
 exports.updateInternId = async (req, res) => {
     const { email, internId, firstName, lastName } = req.body;
 
+    // Input validation
+    if (!email || !internId || !firstName || !lastName) {
+        return res.status(400).json({ message: 'All fields are required' });
+    }
+
     try {
-     
+        // Find intern by email using parameterized query
         let intern = await Intern.findOne({ email });
+
         if (!intern) {
-           
+            // If intern doesn't exist, create a new one
             intern = new Intern({ email, internID: internId, firstName, lastName });
             await intern.save();
         } else {
-    
-            intern.internID = internId; 
+            // Update intern details
+            intern.internID = internId;
             intern.firstName = firstName;
             intern.lastName = lastName;
             await intern.save();
         }
 
+        // Generate JWT token after updating
         const jwtToken = jwt.sign({ id: intern._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.json({ token: jwtToken });
     } catch (error) {

@@ -54,7 +54,6 @@ const AddHoliday = () => {
         if (result.isConfirmed) {
             try {
                 await axios.post(`${process.env.REACT_APP_API_URL}/holidays`, { date, reason });
-                setSuccess('Holiday added successfully!');
                 setDate('');
                 setReason('');
                 fetchHolidays();
