@@ -13,19 +13,6 @@ exports.bookSeat = async (req, res) => {
         if (existingBooking) {
             return res.status(400).json({ message: 'Seat already booked for this date.' });
         }
-
-       
-        const currentMonth = new Date().getMonth();
-        const currentYear = new Date().getFullYear();
-
-        const monthlyBookingsCount = await Booking.countDocuments({
-            intern: req.internId,
-            date: {
-                $gte: new Date(currentYear, currentMonth, 1),
-                $lt: new Date(currentYear, currentMonth + 1, 1)
-            }
-        });
-
     
         const booking = new Booking({ intern: req.internId, date, seatNumber, specialRequest });
         await booking.save();
