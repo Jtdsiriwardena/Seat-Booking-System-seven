@@ -6,14 +6,19 @@ const QRCode = require('qrcode');
 
 exports.bookSeat = async (req, res) => {
     const { date, seatNumber, specialRequest } = req.body;
-    
+
+    // Input validation (ensure date is a valid date string and seatNumber is a valid format)
+    if (!date || !seatNumber || typeof date !== 'string' || typeof seatNumber !== 'string') {
+        return res.status(400).json({ message: 'Invalid input data' });
+    }
+
     try {
-       
+        // Ensure the query uses sanitized input (we already validate the data before)
         const existingBooking = await Booking.findOne({ date, seatNumber });
         if (existingBooking) {
             return res.status(400).json({ message: 'Seat already booked for this date.' });
         }
-    
+
         const booking = new Booking({ intern: req.internId, date, seatNumber, specialRequest });
         await booking.save();
 
@@ -29,6 +34,7 @@ exports.bookSeat = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 };
+
 
 
 
@@ -91,25 +97,29 @@ exports.getBookings = async (req, res) => {
     }
 };
 
+
 exports.getAllBookings = async (req, res) => {
     try {
+        // Safely handle user input by ensuring date is a valid date string
         const { date } = req.query;
 
-        
         let query = {};
         if (date) {
-            query.date = new Date(date);
+            const parsedDate = new Date(date);
+            if (isNaN(parsedDate)) {
+                return res.status(400).json({ message: 'Invalid date format' });
+            }
+            query.date = parsedDate;
         }
 
-       
         const allBookings = await Booking.find(query).populate('intern', 'internID firstName lastName email');
-        
         res.json(allBookings);
     } catch (error) {
         console.error('Error fetching bookings:', error);
         res.status(500).json({ message: 'Server error' });
     }
 };
+
 
 
 
@@ -218,9 +228,16 @@ exports.getInternAttendance = async (req, res) => {
         const query = { intern: internId };
 
         if (startDate && endDate) {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+
+            if (isNaN(start) || isNaN(end)) {
+                return res.status(400).json({ message: 'Invalid date format' });
+            }
+
             query.date = {
-                $gte: new Date(startDate),
-                $lte: new Date(endDate),
+                $gte: start,
+                $lte: end,
             };
         }
 
