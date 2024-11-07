@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Intern.css';
 import logo from './images/logo.png';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faUser, faPlusCircle, faClipboardList, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import SidebarLink from './SidebarLink'; 
+import InternTable from './InternTable';
 
 const Intern = () => {
     const [interns, setInterns] = useState([]);
@@ -53,26 +54,11 @@ const Intern = () => {
             <aside className="ad-sidebar-unique">
                 <img src={logo} alt="logo" className="ad-sidebar-logo-unique" />
                 <nav className="ad-sidebar-nav-unique">
-                    <Link to="/admin" className="ad-sidebar-link-unique">
-                        <FontAwesomeIcon icon={faClipboardList} className="ad-sidebar-icon" />
-                        Bookings
-                    </Link>
-                    <Link to="/interns" className={`px-2 py-2 rounded-tr-full rounded-br-full transition-colors duration-200 ${window.location.pathname === '/interns' ? 'bg-blue-600 text-white' : 'hover:bg-slate-600 hover:text-white'}`}>
-                        <FontAwesomeIcon icon={faUser} className="ad-sidebar-icon" />
-                        Interns
-                    </Link>
-                    <Link to="/add-holiday" className="ad-sidebar-link-unique">
-                        <FontAwesomeIcon icon={faPlusCircle} className="ad-sidebar-icon" />
-                        Add Holiday
-                    </Link>
-                    <Link to="/attendance" className="ad-sidebar-link-unique">
-                        <FontAwesomeIcon icon={faCalendar} className="ad-sidebar-icon" />
-                        Daily Attendance
-                    </Link>
-                    <Link to="/intern-attendance" className="ad-sidebar-link-unique">
-                        <FontAwesomeIcon icon={faClipboardList} className="ad-sidebar-icon" />
-                        Intern Attendance
-                    </Link>
+                    <SidebarLink to="/admin" icon={faClipboardList} label="Bookings" />
+                    <SidebarLink to="/interns" icon={faUser} label="Interns" />
+                    <SidebarLink to="/add-holiday" icon={faPlusCircle} label="Add Holiday" />
+                    <SidebarLink to="/attendance" icon={faCalendar} label="Daily Attendance" />
+                    <SidebarLink to="/intern-attendance" icon={faClipboardList} label="Intern Attendance" />
                 </nav>
                 <button className="ad-sidebar-logout-button-unique">
                     <FontAwesomeIcon icon={faSignOutAlt} className="ad-sidebar-icon" />
@@ -93,26 +79,7 @@ const Intern = () => {
                 </div>
 
                 {currentInterns.length > 0 ? (
-                    <table className="min-w-full table-auto bg-white shadow-lg rounded-lg">
-                        <thead>
-                            <tr className="bg-blue-200">
-                                <th className="px-4 py-2">Intern ID</th>
-                                <th className="px-4 py-2">First Name</th>
-                                <th className="px-4 py-2">Last Name</th>
-                                <th className="px-4 py-2">Email</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {currentInterns.map((intern) => (
-                                <tr key={intern._id} className="hover:bg-gray-100">
-                                    <td className="border px-4 py-2">{intern.internID}</td>
-                                    <td className="border px-4 py-2">{intern.firstName}</td>
-                                    <td className="border px-4 py-2">{intern.lastName}</td>
-                                    <td className="border px-4 py-2">{intern.email}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    <InternTable interns={currentInterns} />
                 ) : (
                     <p className="text-center text-gray-500">No interns available</p>
                 )}
