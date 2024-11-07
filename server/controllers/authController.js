@@ -54,9 +54,10 @@ exports.login = async (req, res) => {
     }
 
     try {
-        // Use parameterized query to find intern by email
+        // Use safe querying techniques with parameterized queries (via ORM methods)
         const intern = await Intern.findOne({ email });
 
+        // Check if intern exists and password matches
         if (!intern || !await bcrypt.compare(password, intern.password)) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
@@ -79,7 +80,7 @@ exports.googleLogin = async (req, res) => {
         const userData = await verifyGoogleToken(token);
         const { email } = userData;
 
-        // Check if intern exists with the given email (parameterized query)
+        // Find intern by email (parameterized query)
         let intern = await Intern.findOne({ email });
 
         if (!intern) {
@@ -105,7 +106,7 @@ exports.updateInternId = async (req, res) => {
     }
 
     try {
-        // Find intern by email using parameterized query
+        // Use parameterized query to prevent any direct query construction from user data
         let intern = await Intern.findOne({ email });
 
         if (!intern) {
