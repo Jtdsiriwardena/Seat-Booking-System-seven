@@ -207,10 +207,10 @@ const Dashboard = () => {
 
                         <div className="seat-grid grid grid-cols-5 gap-2">
     {Array.from({ length: 20 }, (_, i) => i + 1).map(seat => (
-        <div
+        <button
             key={seat}
-            role="button" // Accessibility role for button
-            tabIndex="0" // Makes the div focusable
+            type="button" // Button type to avoid form submission
+            aria-pressed={seatNumber === seat} // Accessibility state to indicate if the seat is selected
             className={`seat w-12 h-12 flex items-center justify-center rounded-md font-bold text-white ${getSeatColor(seat)} cursor-pointer`}
             onClick={() => handleSeatClick(seat)}
             onKeyDown={(e) => {
@@ -221,9 +221,10 @@ const Dashboard = () => {
             }}
         >
             {seat}
-        </div>
+        </button>
     ))}
 </div>
+
 
 
                         <button type="submit" className="confirm-button mt-4 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-500">Confirm Booking</button>
