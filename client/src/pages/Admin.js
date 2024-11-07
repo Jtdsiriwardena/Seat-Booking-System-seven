@@ -5,7 +5,6 @@ import logo from './images/logo.png';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faUser, faPlusCircle, faClipboardList, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
@@ -16,10 +15,14 @@ const Admin = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [showConfirmed, setShowConfirmed] = useState(false);
     const token = localStorage.getItem('token');
-    
-
     const [currentPage, setCurrentPage] = useState(1);
     const bookingsPerPage = 8;
+
+    // Function to sort bookings by confirmation status
+    const sortBookingsByConfirmation = (a, b) => {
+        if (a.isConfirmed === b.isConfirmed) return 0;
+        return a.isConfirmed ? 1 : -1;
+    };
 
     useEffect(() => {
         const fetchBookingsAndStats = async () => {
@@ -28,7 +31,7 @@ const Admin = () => {
                     headers: { Authorization: `Bearer ${token}` }
                 });
 
-                const sortedBookings = response.data.sort((a, b) => a.isConfirmed === b.isConfirmed ? 0 : a.isConfirmed ? 1 : -1);
+                const sortedBookings = response.data.sort(sortBookingsByConfirmation);
                 setBookings(sortedBookings);
                 setTotalBookings(sortedBookings.length);
                 setTotalInterns(new Set(sortedBookings.map(booking => booking.intern._id)).size);
@@ -71,7 +74,6 @@ const Admin = () => {
         }
     };
 
-    
     const handleSearch = (event) => {
         setSearchQuery(event.target.value);
         setCurrentPage(1);
@@ -140,27 +142,20 @@ const Admin = () => {
             </aside>
 
             <div className="table-content p-6">
-
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-
-                    <div className="card bg-green-500 text-white p-4 rounded shadow-lg">
+                    <div className="card bg-blue-900 text-white p-4 rounded shadow-lg">
                         <h3 className="text-xl">Total Bookings</h3>
                         <p className="text-2xl">{totalBookings}</p>
                     </div>
-
-                    <div className="card bg-red-500 text-white p-4 rounded shadow-lg">
+                    <div className="card bg-blue-800 text-white p-4 rounded shadow-lg">
                         <h3 className="text-xl">Pending Bookings</h3>
                         <p className="text-2xl">{upcomingBookings.length}</p>
                     </div>
-
-                    <div className="card bg-blue-500 text-white p-4 rounded shadow-lg">
+                    <div className="card bg-blue-700 text-white p-4 rounded shadow-lg">
                         <h3 className="text-xl">Confirmed Bookings</h3>
                         <p className="text-2xl">{confirmedBookings.length}</p>
                     </div>
-
-                    
-
-                    <div className="card bg-yellow-500 text-white p-4 rounded shadow-lg">
+                    <div className="card bg-blue-600 text-white p-4 rounded shadow-lg">
                         <h3 className="text-xl">Total Interns</h3>
                         <p className="text-2xl">{totalInterns}</p>
                     </div>
@@ -221,12 +216,10 @@ const Admin = () => {
                                         {!booking.isConfirmed && (
                                             <button
                                                 onClick={() => confirmBooking(booking._id)}
-                                                className="py-1 px-3 bg-green-600 text-white rounded hover:bg-green-700"
+                                                className="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700"
                                             >
                                                 Confirm
                                             </button>
-
-                                            
                                         )}
                                     </td>
                                 </tr>
@@ -234,10 +227,12 @@ const Admin = () => {
                         </tbody>
                     </table>
                 ) : (
-                    <p className="text-center">No bookings available.</p>
+                    <p className="text-center text-gray-600">No bookings found.</p>
                 )}
 
-                <div className="flex justify-center mt-4">{renderPageNumbers()}</div>
+                <div className="flex justify-center mt-4">
+                    {renderPageNumbers()}
+                </div>
             </div>
         </div>
     );
