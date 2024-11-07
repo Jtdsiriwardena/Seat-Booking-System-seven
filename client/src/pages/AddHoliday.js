@@ -6,6 +6,7 @@ import logo from './images/logo.png';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faUser, faPlusCircle, faClipboardList, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import PropTypes from 'prop-types';  // Import PropTypes
 
 // SidebarLink component to avoid repetition
 const SidebarLink = ({ to, icon, label }) => {
@@ -176,5 +177,12 @@ const AddHoliday = () => {
         </div>
     );
 };
+
+AddHoliday.propTypes = {
+    to: PropTypes.string.isRequired,       // 'to' is a required string
+    icon: PropTypes.object.isRequired,     // 'icon' should be an object (FontAwesomeIcon)
+    label: PropTypes.string.isRequired,    // 'label' should be a string
+};
+
 
 export default AddHoliday;
