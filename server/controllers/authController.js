@@ -13,6 +13,12 @@ const verifyGoogleToken = async (token) => {
     return ticket.getPayload();
 };
 
+// Helper function to validate email format
+const validateEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return emailRegex.test(email);
+};
+
 // Signup function
 exports.signup = async (req, res) => {
     const { internID, firstName, lastName, email, password } = req.body;
@@ -22,9 +28,8 @@ exports.signup = async (req, res) => {
         return res.status(400).json({ message: 'All fields are required' });
     }
 
-    // Ensure email is properly formatted
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    if (!emailRegex.test(email)) {
+    // Validate email format
+    if (!validateEmail(email)) {
         return res.status(400).json({ message: 'Invalid email format' });
     }
 
@@ -32,8 +37,14 @@ exports.signup = async (req, res) => {
         // Hash password securely
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Create intern instance safely
-        const intern = new Intern({ internID, firstName, lastName, email, password: hashedPassword });
+        // Sanitize and ensure safe data handling before storing
+        const intern = new Intern({
+            internID: internID.trim(),
+            firstName: firstName.trim(),
+            lastName: lastName.trim(),
+            email: email.trim().toLowerCase(),
+            password: hashedPassword
+        });
 
         // Save intern to database
         await intern.save();
@@ -53,9 +64,12 @@ exports.login = async (req, res) => {
         return res.status(400).json({ message: 'Email and password are required' });
     }
 
+    // Ensure sanitized email
+    const sanitizedEmail = email.trim().toLowerCase();
+
     try {
-        // Use safe querying techniques with parameterized queries (via ORM methods)
-        const intern = await Intern.findOne({ email });
+        // Use safe query with properly sanitized data
+        const intern = await Intern.findOne({ email: sanitizedEmail });
 
         // Check if intern exists and password matches
         if (!intern || !await bcrypt.compare(password, intern.password)) {
@@ -80,8 +94,11 @@ exports.googleLogin = async (req, res) => {
         const userData = await verifyGoogleToken(token);
         const { email } = userData;
 
-        // Find intern by email (parameterized query)
-        let intern = await Intern.findOne({ email });
+        // Ensure email is sanitized
+        const sanitizedEmail = email.trim().toLowerCase();
+
+        // Find intern by email with sanitized value
+        let intern = await Intern.findOne({ email: sanitizedEmail });
 
         if (!intern) {
             return res.json({ isNewUser: true, email });
@@ -105,19 +122,27 @@ exports.updateInternId = async (req, res) => {
         return res.status(400).json({ message: 'All fields are required' });
     }
 
+    // Ensure email is sanitized
+    const sanitizedEmail = email.trim().toLowerCase();
+
     try {
-        // Use parameterized query to prevent any direct query construction from user data
-        let intern = await Intern.findOne({ email });
+        // Use sanitized data for the query
+        let intern = await Intern.findOne({ email: sanitizedEmail });
 
         if (!intern) {
             // If intern doesn't exist, create a new one
-            intern = new Intern({ email, internID: internId, firstName, lastName });
+            intern = new Intern({
+                email: sanitizedEmail,
+                internID: internId.trim(),
+                firstName: firstName.trim(),
+                lastName: lastName.trim(),
+            });
             await intern.save();
         } else {
             // Update intern details
-            intern.internID = internId;
-            intern.firstName = firstName;
-            intern.lastName = lastName;
+            intern.internID = internId.trim();
+            intern.firstName = firstName.trim();
+            intern.lastName = lastName.trim();
             await intern.save();
         }
 
