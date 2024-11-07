@@ -1,0 +1,204 @@
+
+
+.add-holiday-container-unique {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f4f4f9;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+.add-holiday-sidebar-unique {
+    width: 250px;
+    background-color: #0e3866;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+
+.add-holiday-sidebar-logo-unique {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+
+.add-holiday-sidebar-nav-unique {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+
+.add-holiday-sidebar-nav-unique a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    text-align: center;
+    margin: 5px 0;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    width: 100%; 
+}
+
+.add-holiday-sidebar-nav-unique a:hover {
+    background-color: #1a73e8;
+    text-decoration: none;
+}
+
+
+.add-holiday-logout-button-unique {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 28px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.add-holiday-logout-button-unique:hover {
+    background-color: #c9302c;
+}
+
+.add-holiday-content-unique {
+    flex: 2;
+    padding: 40px;
+}
+
+.add-holiday-content-unique h1 {
+    color: #070d46;
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-left: 250px;
+}
+
+.add-holiday-content-unique h2 {
+    color: #0c095b;
+    font-size: 2rem;
+    margin-bottom: 10px;
+    
+}
+
+
+.add-holiday-form-unique {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+   margin-left: 520px;
+}
+
+.add-holiday-form-unique label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+}
+
+.add-holiday-form-unique input[type="date"], 
+.add-holiday-form-unique textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.add-holiday-form-unique textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.add-holiday-submit-button-unique {
+    background-color: #29852e;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s;
+    width: 100%;
+}
+
+.add-holiday-submit-button-unique:hover {
+    background-color: #1e5621;
+    transform: translateY(-2px);
+}
+
+
+.add-holiday-success-message-unique {
+    color: green;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.add-holiday-error-message-unique {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+.add-holiday-loading-message-unique {
+    text-align: center;
+    color: #333;
+}
+
+.add-holiday-table-unique {
+    width: 75%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 300px;
+}
+
+.add-holiday-table-unique th, .add-holiday-table-unique td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.add-holiday-table-unique th {
+    background-color:#0e3866;
+    font-weight: 600;
+    color: white;
+}
+
+
+.delete-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 50%;
+}
+
+.delete-button:hover {
+    background-color: #ff1a1a;
+}
+
+.delete-button:active {
+    background-color: #e60000;
+}
+
+.delete-button:focus {
+    outline: none;
+}

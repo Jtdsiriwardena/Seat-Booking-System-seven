@@ -1,0 +1,153 @@
+.intern-attendance-dashboard {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f4f4f4; 
+    font-family: 'Roboto', sans-serif; 
+    padding: 20px; 
+}
+
+.sidebar-unique {
+    width: 250px;
+    background-color: #0e3866;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.attendance-content {
+    flex: 1; 
+    max-width: 900px;
+    height: 600px;
+    margin: 0 auto; 
+    background-color: #ffffff; 
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    padding: 20px;
+    margin-top: 20px;
+    margin-left: 420px;
+}
+
+h1 {
+    text-align: center; 
+    margin-bottom: 20px;
+    color: #070d46;
+    font-size: 32px;
+}
+
+.intern-select {
+    width: 100%; 
+    padding: 10px; 
+    margin-bottom: 20px; 
+    border-radius: 4px; 
+    border: 1px solid #ddd; 
+    font-size: 16px; 
+}
+
+.filter-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    max-width: 850px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.filter-dates {
+    display: flex;
+    gap: 20px;
+}
+
+.filter-dates label {
+    font-size: 16px;
+    font-weight: 500;
+    margin-right: 10px;
+}
+
+.filter-dates input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 200px;
+}
+
+.filter-button:hover {
+    background-color: #072347;
+}
+
+
+.filter-button {
+    padding: 10px 20px;
+    background-color: #0e3866;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 200px;
+}
+
+.attendance-table {
+    width: 100%;
+    border-collapse: collapse; 
+    margin-top: 10px; 
+}
+
+.attendance-table th, .attendance-table td {
+    padding: 15px;
+    text-align: center; 
+    border: 1px solid #ddd;
+}
+
+.attendance-table th {
+    background-color: #34495e; 
+    color: white; 
+    position: sticky; 
+    top: 0; 
+    z-index: 10;
+}
+
+.attendance-table tbody {
+    display: block; 
+    max-height: 300px; 
+    overflow-y: auto;
+}
+
+.attendance-table tr {
+    display: table;
+    width: 100%; 
+    table-layout: fixed;
+}
+
+.attendance-table td {
+    background-color: #f9f9f9;
+}
+
+.attendance-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.intern-export-pdf-button {
+    background-color: #2c9244; 
+    color: white; 
+    border: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border-radius: 4px; 
+    cursor: pointer; 
+    transition: background-color 0.3s;
+}
+
+.intern-export-pdf-button:hover {
+    background-color: #155c25;
+}
+
+.error {
+    color: #e74c3c;
+    margin-top: 20px; 
+    text-align: center;
+}

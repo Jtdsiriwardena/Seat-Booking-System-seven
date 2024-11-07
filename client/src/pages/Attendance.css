@@ -1,0 +1,182 @@
+
+.attendance-container-unique {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f4f4f9;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+.attendance-dashboard {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f4f4f9;
+    font-family: 'Roboto', sans-serif;
+}
+
+.attendance-sidebar-unique {
+    width: 250px;
+    background-color: #0e3866;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+
+.attendance-sidebar-logo-unique {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+
+.attendance-sidebar-nav-unique {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+
+.attendance-sidebar-nav-unique a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    text-align: center;
+    margin: 5px 0;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    width: 100%; 
+}
+
+.attendance-sidebar-nav-unique a:hover {
+    background-color: #1a73e8;
+    text-decoration: none;
+}
+
+
+.attendance-sidebar-logout-button-unique {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 28px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.attendance-sidebar-logout-button-unique:hover {
+    background-color: #c9302c;
+}
+
+
+.attendance-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.attendance-date-picker {
+    display: block;
+    margin: 0 auto 20px auto;
+    padding: 8px 12px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 250px;
+    
+}
+
+.intern-attendance-table {
+    width: 1000px;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    margin-left: 400px;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.intern-attendance-table thead {
+    background-color: #0e3866;
+    color: white;
+}
+
+.intern-attendance-table th, .attendance-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+
+    
+}
+
+.intern-attendance-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+
+.attendance-area {
+    max-width: 1000px;
+    margin: auto;
+    margin-left: 400px;
+    background-color: rgb(255, 255, 255);
+    height: 500px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+}
+
+.attendance-heading {
+    text-align: center;
+    font-weight: bold;
+    margin-right: 250px;
+}
+
+
+.export-pdf-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.export-pdf-button:hover {
+    background-color: #45a049;
+}
+
+
+
+
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    margin: 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.pagination-button.active {
+    background-color: #0056b3;
+}
+
+.pagination-button:hover {
+    background-color: #0056b3;
+}

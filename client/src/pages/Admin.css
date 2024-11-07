@@ -1,0 +1,165 @@
+
+.ad-admin-dashboard-unique {
+    display: flex;
+}
+
+
+.ad-sidebar-unique {
+    width: 250px; 
+    height: 100vh;
+    background-color: #222a54;
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    overflow-y: auto; 
+    transition: background-color 0.3s; 
+    border-top-right-radius: 30px;
+    border-bottom-right-radius:30px ;
+}
+
+.ad-sidebar-logo-unique {
+    display: block;
+    margin: 20px auto;
+    max-width: 80%; 
+}
+
+.ad-sidebar-nav-unique {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0; 
+}
+
+.ad-sidebar-link-unique {
+    color: white;
+    text-decoration: none; 
+    padding: 10px 15px; 
+    display: flex; 
+    align-items: center; 
+    transition: background-color 0.3s; 
+    margin-top: 20px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.ad-sidebar-link-unique:hover {
+    background-color: #ffffff; 
+    color: #070d46;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.ad-sidebar-icon {
+    margin-right: 10px;
+    font-size: 18px; 
+}
+
+.ad-sidebar-logout-button-unique {
+    margin-top: auto; 
+    background-color: #e63946; 
+    color: white; 
+    border: none;
+    padding: 10px 15px; 
+    cursor: pointer; 
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s; 
+    width: 50%;
+    margin-left: 15px;
+}
+
+.ad-sidebar-logout-button-unique:hover {
+    background-color: #d62839; 
+}
+
+
+
+.table-content {
+    flex: 1;
+    padding: 20px;
+    
+    margin-left: 250px;
+}
+
+
+.admin-title {
+    text-align: center;
+    color: #070d46;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.admin-table th {
+    background-color: #0f3b64;
+    color: white;
+}
+
+.admin-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.admin-table tbody tr:hover {
+    background-color: #ddd;
+}
+
+.admin-confirm-button {
+    background-color: #50b555;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    width: 100px;
+}
+
+.admin-confirm-button:hover {
+    background-color: #45a049;
+}
+
+.admin-no-bookings {
+    text-align: center;
+    font-size: 18px;
+    color: #999;
+}
+
+.admin-search-bar {
+    width: 100%;
+    max-width: 400px; 
+    padding: 10px; 
+    margin: 20px 0; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    font-size: 16px;
+    outline: none; 
+    transition: border-color 0.3s, box-shadow 0.3s; 
+}
+
+
+.admin-search-bar:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+
+.admin-search-bar::placeholder {
+    color: #aaa; 
+    font-style: italic;
+}

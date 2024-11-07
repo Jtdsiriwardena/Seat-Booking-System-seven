@@ -1,0 +1,152 @@
+
+.view-bookings-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #dbe9fe;
+    font-family: 'Roboto', sans-serif;
+}
+
+.bookings-dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #061d45;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.dashboard-logo {
+    width: 150px;
+}
+
+nav a {
+    margin-right: 20px;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+nav a:hover {
+    text-decoration: none;
+}
+
+.logout-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    opacity: 0.8;
+}
+
+.bookings-table {
+    width: 80%;
+    border-collapse: collapse;
+    background-color: #e4e7fb;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.bookings-table thead {
+    background-color: #12365c;
+    color: white;
+    text-align: center;
+}
+
+.bookings-table th, .bookings-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.bookings-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.bookings-table tbody tr:hover {
+    background-color: #e2e6ea;
+}
+
+
+.heading {
+    color: #061d45;      
+    text-align: center;
+    font-size: 24px;         
+    font-weight: bold;       
+    padding: 20px 40px;       
+}
+
+
+
+
+.table-navigation {
+    display: flex; 
+    margin-bottom: 20px;
+    margin-left: 150px;
+}
+
+.nav-button {
+    margin-top: 30px;
+    margin-right: 10px; 
+    padding: 10px 15px;
+    cursor: pointer;
+    width: 200px;
+}
+
+.nav-button.active {
+    font-weight: bold; 
+    background-color: #01366a;
+    color: white;
+}
+
+.nav-button:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding-bottom: 30px;
+    
+}
+
+.pagination button {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.pagination button.active-page {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination button:disabled {
+    background-color: #e0e0e0;
+    cursor: not-allowed;
+}
+
+
+
+.cancel-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}

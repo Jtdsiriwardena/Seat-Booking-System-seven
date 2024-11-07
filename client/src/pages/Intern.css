@@ -1,0 +1,123 @@
+
+.intern-dashboard {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f4f4f9;
+    font-family: 'Roboto', sans-serif;
+}
+
+.sidebar-unique {
+    width: 250px;
+    background-color: #0e3866;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.sidebar-nav-unique {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.sidebar-link-unique {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    text-align: center;
+    margin: 5px 0;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.sidebar-link-unique:hover {
+    background-color: #1a73e8;
+    text-decoration: none;
+}
+
+.sidebar-logout-button-unique {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.sidebar-logout-button-unique:hover {
+    background-color: #c9302c;
+}
+
+
+
+.intern-title {
+    text-align: center;
+    margin: 30px 0;
+    color: #070d46;
+    font-size: 32px;
+}
+
+.intern-table {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.intern-table th, .intern-table td {
+    border: 1px solid #e1e1e1;
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.intern-table th {
+    background-color: #0e3866;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.intern-table td {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+.intern-table tr:nth-child(even) td {
+    background-color: #f8f9fa;
+}
+
+.intern-no-interns {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #666666;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 50%;
+    max-width: 600px;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.search-input:focus {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
