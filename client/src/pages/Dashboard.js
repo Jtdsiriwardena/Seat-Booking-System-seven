@@ -13,7 +13,7 @@ const Dashboard = () => {
     const [date, setDate] = useState('');
     const [seatNumber, setSeatNumber] = useState('');
     const [specialRequest, setSpecialRequest] = useState('');
-    const [monthlyCount, setMonthlyCount] = useState(0); // State for monthly booking count
+    const [monthlyCount, setMonthlyCount] = useState(0); 
     const token = localStorage.getItem('token');
     const internId = localStorage.getItem('internId');
 
@@ -79,13 +79,13 @@ const Dashboard = () => {
                 confirmButtonText: 'Ok',
             });
     
-            // Update the monthly count after a successful booking
+           
             setMonthlyCount(prevCount => prevCount + 1);
     
         } catch (error) {
             console.error('Error booking seat:', error.response ? error.response.data : error.message);
     
-            // Check if the error message is related to booking limit
+          
             if (error.response && error.response.status === 400 && error.response.data.message.includes('maximum limit of 8 bookings')) {
                 MySwal.fire({
                     title: 'Booking Limit Reached!',
@@ -153,7 +153,7 @@ const Dashboard = () => {
                     confirmButtonText: 'Ok',
                 });
             }
-        } else if (color !== 'bg-red-500') { // Ensure that the condition matches booked seats
+        } else if (color !== 'bg-red-500') { 
             setSeatNumber(seat);
         }
     };
@@ -206,16 +206,25 @@ const Dashboard = () => {
                         </div>
 
                         <div className="seat-grid grid grid-cols-5 gap-2">
-                            {Array.from({ length: 20 }, (_, i) => i + 1).map(seat => (
-                                <div
-                                    key={seat}
-                                    className={`seat w-12 h-12 flex items-center justify-center rounded-md font-bold text-white ${getSeatColor(seat)} cursor-pointer`}
-                                    onClick={() => handleSeatClick(seat)}
-                                >
-                                    {seat}
-                                </div>
-                            ))}
-                        </div>
+    {Array.from({ length: 20 }, (_, i) => i + 1).map(seat => (
+        <div
+            key={seat}
+            role="button" // Accessibility role for button
+            tabIndex="0" // Makes the div focusable
+            className={`seat w-12 h-12 flex items-center justify-center rounded-md font-bold text-white ${getSeatColor(seat)} cursor-pointer`}
+            onClick={() => handleSeatClick(seat)}
+            onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault(); // Prevent page scroll when pressing space
+                    handleSeatClick(seat); // Handle keyboard interaction
+                }
+            }}
+        >
+            {seat}
+        </div>
+    ))}
+</div>
+
 
                         <button type="submit" className="confirm-button mt-4 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-500">Confirm Booking</button>
                     </form>
